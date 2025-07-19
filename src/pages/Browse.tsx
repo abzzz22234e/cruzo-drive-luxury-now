@@ -20,14 +20,14 @@ const Browse = () => {
   // Filter states
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState([200, 1000]);
+  const [priceRange, setPriceRange] = useState([200, 1500]);
   const [selectedTransmission, setSelectedTransmission] = useState("");
   const [selectedFuel, setSelectedFuel] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState("featured");
 
-  const brands = ["Mercedes-Benz", "Audi", "Porsche", "BMW", "Tesla", "Bentley", "Land Rover"];
-  const tags = ["Luxury", "Sports", "SUV", "Electric", "Supercar", "Coupe", "Premium"];
+  const brands = ["Mercedes-Benz", "Audi", "Porsche", "BMW", "Tesla", "Bentley", "Land Rover", "Ferrari", "Lamborghini", "Maserati", "Jaguar", "Rolls-Royce", "McLaren", "Aston Martin"];
+  const tags = ["Luxury", "Sports", "SUV", "Electric", "Supercar", "Coupe", "Premium", "Ultra-Luxury", "Grand Tourer", "Hypercar", "British", "Italian", "German"];
 
   useEffect(() => {
     const allCars = getCars();
@@ -61,12 +61,12 @@ const Browse = () => {
       }
       
       // Transmission
-      if (selectedTransmission && car.transmission !== selectedTransmission) {
+      if (selectedTransmission && selectedTransmission !== "all" && car.transmission !== selectedTransmission) {
         return false;
       }
       
       // Fuel type
-      if (selectedFuel && car.fuel !== selectedFuel) {
+      if (selectedFuel && selectedFuel !== "all" && car.fuel !== selectedFuel) {
         return false;
       }
       
@@ -119,7 +119,7 @@ const Browse = () => {
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedBrands([]);
-    setPriceRange([200, 1000]);
+    setPriceRange([200, 1500]);
     setSelectedTransmission("");
     setSelectedFuel("");
     setSelectedTags([]);
@@ -193,7 +193,7 @@ const Browse = () => {
                 <Slider
                   value={priceRange}
                   onValueChange={setPriceRange}
-                  max={1000}
+                  max={1500}
                   min={200}
                   step={50}
                   className="w-full"
@@ -225,7 +225,7 @@ const Browse = () => {
                     <SelectValue placeholder="Any" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Any</SelectItem>
+                    <SelectItem value="all">Any</SelectItem>
                     <SelectItem value="Automatic">Automatic</SelectItem>
                     <SelectItem value="Manual">Manual</SelectItem>
                   </SelectContent>
@@ -240,7 +240,7 @@ const Browse = () => {
                     <SelectValue placeholder="Any" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Any</SelectItem>
+                    <SelectItem value="all">Any</SelectItem>
                     <SelectItem value="Petrol">Petrol</SelectItem>
                     <SelectItem value="Electric">Electric</SelectItem>
                     <SelectItem value="Hybrid">Hybrid</SelectItem>
